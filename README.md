@@ -24,5 +24,11 @@ For my deep dive into the Software Engineer job market, I harnessed the power of
 - **Git & GitHub**: Essential for version control and sharing my SQL scripts and analysis, ensuring collaboration and project tracking.
   
 # The Analysis
+
+## Top Paying Roles
+<img src="assets/top_paying_role.png" alt="top paying rol" width="500" height="350" />
+
+## Top In-demand Skills
+
 # What I learned
 # Conclusions
