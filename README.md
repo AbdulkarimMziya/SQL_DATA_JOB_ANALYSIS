@@ -29,6 +29,7 @@ For my deep dive into the Software Engineer job market, I harnessed the power of
 <img src="assets/top_paying_role.png" alt="top paying rol" width="500" height="350" />
 
 ## Top In-demand Skills
+<img src="assets/top_demanded_skills.png" alt="top paying rol" width="500" height="350" />
 
 # What I learned
 # Conclusions
