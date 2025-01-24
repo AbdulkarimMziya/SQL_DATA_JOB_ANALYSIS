@@ -26,6 +26,12 @@ For my deep dive into the Software Engineer job market, I harnessed the power of
 # The Analysis
 
 ## Top Paying Roles
+To identify the highest-paying roles, I filtered Software positions by average yearly salary and location. This query highlights the high paying opportunities in the field.
+
+Here's the breakdown of the top Software Engineer jobs in 2023:
+- **Wide Salary Range:** Top 10 paying Software Engineering roles span from $184,000 to $225,000, indicating significant salary potential in the field.
+- **Diverse Employers** Companies like Datavant,MongoDB, and Capital One are among those offering high salaries,showing a broad interest across different industries.
+- **Job Title Variety:** There's a high diversity in job titles, from software engineering and data-related fields, reflecting varied roles and specializations within data.
 <img src="assets/top_paying_role.png" alt="top paying rol" width="500" height="350" />
 
 ## Top In-demand Skills
