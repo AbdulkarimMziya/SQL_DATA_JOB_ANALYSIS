@@ -28,14 +28,61 @@ For my deep dive into the Software Engineer job market, I harnessed the power of
 ## Top Paying Roles
 To identify the highest-paying roles, I filtered Software positions by average yearly salary and location. This query highlights the high paying opportunities in the field.
 
+```SQL
+SELECT 
+    job_id,
+    job_title,
+    job_location,
+    job_schedule_type,
+    salary_year_avg,
+    job_posted_date,
+    company_dim.name AS company_name
+FROM
+    job_postings_fact
+LEFT JOIN company_dim ON company_dim.company_id = job_postings_fact.company_id
+WHERE job_title LIKE '%Software%' AND
+      job_location = 'Anywhere' AND
+      salary_year_avg IS NOT NULL
+ORDER BY salary_year_avg DESC
+LIMIT 10;
+```
+
+<img src="assets/top_paying_role.png" alt="top paying rol" width="500" height="350" />
+
 Here's the breakdown of the top Software Engineer jobs in 2023:
 - **Wide Salary Range:** Top 10 paying Software Engineering roles span from $184,000 to $225,000, indicating significant salary potential in the field.
 - **Diverse Employers** Companies like Datavant,MongoDB, and Capital One are among those offering high salaries,showing a broad interest across different industries.
 - **Job Title Variety:** There's a high diversity in job titles, from software engineering and data-related fields, reflecting varied roles and specializations within data.
-<img src="assets/top_paying_role.png" alt="top paying rol" width="500" height="350" />
 
 ## Top In-demand Skills
+
+
+```SQL
+WITH top_paying_jobs AS (
+    SELECT 
+        job_id,
+        job_title,
+        salary_year_avg,
+        company_dim.name AS company_name
+    FROM
+        job_postings_fact
+    LEFT JOIN company_dim ON company_dim.company_id = job_postings_fact.company_id
+    WHERE job_title LIKE '%Software%' AND
+        job_location = 'Anywhere' AND
+        salary_year_avg IS NOT NULL
+    ORDER BY salary_year_avg DESC
+    LIMIT 10
+)
+
+SELECT top_paying_jobs.*,
+        skills
+FROM top_paying_jobs
+INNER JOIN skills_job_dim ON top_paying_jobs.job_id = skills_job_dim.job_id
+INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+ORDER BY salary_year_avg DESC
+```
 <img src="assets/top_demanded_skills.png" alt="top paying rol" width="500" height="350" />
+
 
 # What I learned
 # Conclusions
