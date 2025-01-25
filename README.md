@@ -46,42 +46,67 @@ WHERE job_title LIKE '%Software%' AND
 ORDER BY salary_year_avg DESC
 LIMIT 10;
 ```
-
-<img src="assets/top_paying_role.png" alt="top paying rol" width="500" height="350" />
-
 Here's the breakdown of the top Software Engineer jobs in 2023:
 - **Wide Salary Range:** Top 10 paying Software Engineering roles span from $184,000 to $225,000, indicating significant salary potential in the field.
 - **Diverse Employers** Companies like Datavant,MongoDB, and Capital One are among those offering high salaries,showing a broad interest across different industries.
 - **Job Title Variety:** There's a high diversity in job titles, from software engineering and data-related fields, reflecting varied roles and specializations within data.
 
-## Top In-demand Skills
+<img src="assets/top_paying_role.png" alt="top paying rol" width="500" height="350" />
+*Bar graph visualizing the salary for the top 10 salarigs for data analysts; ChatGPT generated this graph from my SQL query.*
 
+## Top In-demand Skills
+This query aims to identify the top 10 most in-demand skills for software-related jobs by counting how frequently each skill appears across job postings.
 
 ```SQL
-WITH top_paying_jobs AS (
-    SELECT 
-        job_id,
-        job_title,
-        salary_year_avg,
-        company_dim.name AS company_name
-    FROM
-        job_postings_fact
-    LEFT JOIN company_dim ON company_dim.company_id = job_postings_fact.company_id
-    WHERE job_title LIKE '%Software%' AND
-        job_location = 'Anywhere' AND
-        salary_year_avg IS NOT NULL
-    ORDER BY salary_year_avg DESC
-    LIMIT 10
-)
-
-SELECT top_paying_jobs.*,
-        skills
-FROM top_paying_jobs
-INNER JOIN skills_job_dim ON top_paying_jobs.job_id = skills_job_dim.job_id
+SELECT
+    skills,
+    COUNT (skills_job_dim.job_id) AS demand_count
+FROM 
+    job_postings_fact
+INNER JOIN skills_job_dim ON job_postings_fact. job_id = skills_job_dim.job_id
 INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
-ORDER BY salary_year_avg DESC
+WHERE job_title_short LIKE '%Software%'
+GROUP BY
+    skills
+ORDER BY
+    demand_count DESC
+LIMIT 10
 ```
+
+Here's the breakdown of the most in demand skills for a Software Engineer in 2023:
+- Programming languages like **Python**, **Java**, and **JavaScript** remain fundamental, while cloud platforms and containerization tools (AWS, Azure, Kubernetes, Docker) are becoming increasingly vital in the industry.
+
 <img src="assets/top_demanded_skills.png" alt="top paying rol" width="500" height="350" />
+
+## Skills Based on Salary
+Exploring the average salaries associated with different skills revealed which skillsare the highest paying.
+
+```SQL
+SELECT
+    skills,
+    ROUND(AVG(salary_year_avg), 2) avg_salary
+FROM 
+    job_postings_fact
+INNER JOIN skills_job_dim ON job_postings_fact. job_id = skills_job_dim.job_id
+INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+WHERE job_title_short LIKE '%Software%' AND
+    salary_year_avg IS NOT NULL
+GROUP BY
+    skills
+ORDER BY
+    avg_salary DESC
+LIMIT 30
+```
+
+Here's the breakdown of the top paying skills for a Software Engineer in 2023:
+- **Top-Paying Skills:** Specialized databases like **Cassandra ($213,333)** and **Neo4j ($183,840)** lead due to their niche demand.
+- **Frameworks:** Competitive salaries for **ASP.NET Core ($155,000)** and **Ruby on Rails ($149,500)**; slightly lower for widely used tools like **Express.js ($143,816)**.
+- **Languages:** Specialized languages like **Assembly ($157,188)** command premium pay.
+- **Infrastructure:** Skills in **Debian ($196,500)** reflect high demand in server management.
+- **Overall:** Salaries correlate with demand and specialization, with databases and infrastructure expertise leading the way.
+
+
+* Table of the average salary of the top 10 paying skills for Software Engineer *
 
 
 # What I learned
